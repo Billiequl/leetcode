@@ -1,0 +1,53 @@
+Trapping Rain Water
+https://leetcode.com/problems/trapping-rain-water/description/
+
+
+Solution:
+
+Two boundary bars cannot trap water.
+From the second left to the last but one bars,the amount of water each bar can trap: min(the highest height in the left, the highest height in the right) - current bar height. 
+We should traverse all bar and sum up the amount of the water trapped in each bar.
+use two pointers: left pointer and right pointer , find the hightest height l_max in [0,left],and the hightest height r_max in [right,end].
+if l_max<r_max, water amount = l_max-current height at left pointer,move left pointer
+if l_max>r_max, water amount = r_max-current height at right pointer, move right pointer
+
+Code:
+
+    def trap(self, height):
+        left=0
+        right=len(height)-1
+        ans=0
+        l_max=height[0]
+        r_max=height[right]
+        while left < right:
+            l_max=max(l_max,height[left])
+            r_max=max(r_max,height[right])
+            if l_max<r_max:
+                ans+=max(l_max-height[left],0)
+                left+=1
+            else:
+                ans+=max(r_max-height[right],0)
+                right-=1
+        return ans
+
+
+
+Container With Most Water
+https://leetcode.com/problems/container-with-most-water/submissions/
+
+Solution:
+
+Code:
+
+    def maxArea(self, height):
+        left = 0
+        right = len(height) - 1
+        maxArea = 0
+        while left < right:
+            curArea = min(height[left],height[right]) * (right-left)
+            maxArea = max(maxArea,curArea)
+            if(height[left]<height[right]):
+                left+=1
+            else:
+                right-=1
+        return maxArea
