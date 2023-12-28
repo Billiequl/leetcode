@@ -1,0 +1,40 @@
+
+DFS
+
+BFS
+
+Number of Islands
+https://leetcode.com/problems/number-of-islands/description/
+
+Solution:
+Traverse all grid.
+If find a '1', then collect all other '1' which connects it , mark each of them as 'visited'.
+Repeat  above steps until all '1' grids are visited.
+
+Code:
+
+ def numIslands(self, grid):
+        r = len(grid)
+        c = len(grid[0])
+        ans=0
+        visited=[[0 for j in range(c)] for i in range(r)];
+        q=[];
+        dir = [[0,1],[0,-1],[-1,0],[1,0]]
+        for i in range(r):
+            for j in range(c):
+                if grid[i][j]=='0' or visited[i][j]:continue
+                else:
+                    ans+=1
+                    q.append([i,j])
+                    while q:
+                        x = q[0][0]
+                        y = q[0][1]
+                        q.pop(0)
+                        if (x<0 or x>=r or y<0 or y>=c or visited[x][y] or grid[x][y] == '0'):continue
+                        visited[x][y] = True
+                        for d in range(len(dir)):
+                            q.append([x+dir[d][0],y+dir[d][1]])
+               
+        return ans
+        
+Binary Indexed Tree
