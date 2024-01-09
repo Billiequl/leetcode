@@ -1,0 +1,24 @@
+Non-overlapping Intervals
+
+https://leetcode.com/problems/non-overlapping-intervals/description/
+
+Solution:
+The greedy strategy of choosing intervals with smaller end points ensures that we are minimizing the impact of overlapping intervals on the remaining set.
+So every iteration we remove the big end interval and keep small end interval.
+
+    def eraseOverlapIntervals(self, intervals):
+
+        intervals=sorted(intervals,key=lambda x:x[0])
+        count = 0
+        last_right = intervals[0][1]
+        for (num,i) in enumerate(intervals) :
+            if num == 0 :
+                continue
+            
+            if last_right > i[0] :
+                last_right= min(last_right,i[1]) 
+                count += 1
+            else :
+                last_right = i[1]
+  
+        return count
